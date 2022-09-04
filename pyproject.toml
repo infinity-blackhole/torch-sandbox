@@ -1,28 +1,25 @@
 [tool.poetry]
-authors = ["Shikanime Deva <deva.shikanime@sfeir.com>"]
+authors = ["Shikanime Deva <shikanime.deva@shikanime.studio>"]
 description = "Torch sandbox"
 license = "AGPL-3.0-or-later"
 name = "torch_sandbox"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-python = "~3.9"
+python = "^3.9"
 pynvml = "^11.4.1"
-numpy = "^1.22.2"
-torchvision = "^0.11.3"
-jupyterlab = "^3.2.9"
-matplotlib = "^3.5.1"
+jupyterlab = "^3.4.5"
+matplotlib = "^3.5.3"
+diffusers = "^0.2.3"
+ipywidgets = "^8.0.1"
 torch = [
-    { url = "https://download.pytorch.org/whl/cu113/torch-1.10.2%2Bcu113-cp39-cp39-linux_x86_64.whl", markers = "sys_platform == 'linux' and platform_machine == 'x89_64'" },
-    { url = "https://download.pytorch.org/whl/cu113/torch-1.10.2%2Bcu113-cp39-cp39-win_amd64.whl", markers = "sys_platform == 'win32' and platform_machine == 'x89_64'" },
-    { version = "1.10.2" }
+    { url = "https://download.pytorch.org/whl/cu116/torch-1.12.1%2Bcu116-cp39-cp39-linux_x86_64.whl", markers = "sys_platform == 'linux'" },
+    { url = "https://download.pytorch.org/whl/cu116/torch-1.12.1%2Bcu116-cp39-cp39-win_amd64.whl", markers = "sys_platform == 'win32'" },
+    { version = "=1.12.1", markers = "sys_platform == 'darwin'" }
 ]
 
 [tool.poetry.dev-dependencies]
-black = "^21.11b0"
-
-[tool.black]
-target-version = ['py39']
+black =  "^22.6.0"
 
 [tool.isort]
 profile = "black"
