@@ -1,17 +1,19 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, stdenv ? pkgs.stdenv }:
+{ pkgs, lib, stdenv }:
 
 pkgs.mkShell {
   buildInputs = [
-    (pkgs.python39.withPackages (pypkgs: with pypkgs; [ pip poetry ]))
-    pkgs.bashInteractive
+    pkgs.nixpkgs-fmt
+    pkgs.python39
+    pkgs.python39Packages.pip
+    pkgs.python39Packages.poetry
   ];
   shellHook = ''
-    poetry shell
+    export LD_LIBRARY_PATH="${
+      lib.makeLibraryPath [
+        stdenv.cc.cc.lib
+        pkgs.cudaPackages.cudnn
+        pkgs.cudaPackages.cudatoolkit.lib
+      ]
+    }''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
   '';
-  LD_LIBRARY_PATH = lib.concatStringsSep ":" [
-    "/usr/lib/wsl/lib"
-    "/run/opengl-drivers/lib"
-    "/run/opengl-drivers-32/lib"
-    (lib.makeLibraryPath [ stdenv.cc.cc.lib ])
-  ];
 }

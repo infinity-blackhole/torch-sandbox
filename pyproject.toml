@@ -1,24 +1,28 @@
 [tool.poetry]
 authors = ["Shikanime Deva <deva.shikanime@sfeir.com>"]
 description = "Torch sandbox"
-license = "AGPL-3.0"
+license = "AGPL-3.0-or-later"
 name = "torch_sandbox"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "~3.9"
-torch = "^1.10.2"
 pynvml = "^11.4.1"
 numpy = "^1.22.2"
 torchvision = "^0.11.3"
 jupyterlab = "^3.2.9"
 matplotlib = "^3.5.1"
+torch = [
+    { url = "https://download.pytorch.org/whl/cu113/torch-1.10.2%2Bcu113-cp39-cp39-linux_x86_64.whl", markers = "sys_platform == 'linux' and platform_machine == 'x89_64'" },
+    { url = "https://download.pytorch.org/whl/cu113/torch-1.10.2%2Bcu113-cp39-cp39-win_amd64.whl", markers = "sys_platform == 'win32' and platform_machine == 'x89_64'" },
+    { version = "1.10.2" }
+]
 
 [tool.poetry.dev-dependencies]
 black = "^21.11b0"
 
 [tool.black]
-target-version = ['py38']
+target-version = ['py39']
 
 [tool.isort]
 profile = "black"
