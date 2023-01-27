@@ -8,16 +8,26 @@
 
   outputs = { nixpkgs, devenv, ... }@inputs: {
     devShells = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.unix (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in
       {
         default = devenv.lib.mkShell {
-          inherit inputs;
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          inherit inputs pkgs;
           modules = [
             ./modules/base.nix
             ./modules/python.nix
+          ];
+        };
+        cuda = devenv.lib.mkShell {
+          inherit inputs pkgs;
+          modules = [
+            ./modules/base.nix
+            ./modules/python.nix
+            ./modules/cuda.nix
           ];
         };
       }
