@@ -2,9 +2,9 @@
   "image": "mcr.microsoft.com/devcontainers/base:bullseye",
   "features": {
     "ghcr.io/devcontainers/features/nix:1": {
-      "version": "2.11.1",
-      "flakeUri": "nixpkgs#direnv"
-    }
+      "extraNixConfig": "experimental-features = nix-command flakes"
+    },
+    "ghcr.io/christophermacgown/devcontainer-features/direnv:1": {}
   },
   "extensions": [
     "jnoortheen.nix-ide",
@@ -16,5 +16,6 @@
     "SonarSource.sonarlint-vscode",
     "bungcip.better-toml"
   ],
-  "postCreateCommand": "direnv allow"
+  "updateContentCommand": "direnv allow",
+  "postCreateCommand": "poetry develop"
 }
