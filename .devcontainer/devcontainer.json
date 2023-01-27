@@ -16,5 +16,7 @@
     "SonarSource.sonarlint-vscode",
     "bungcip.better-toml"
   ],
-  "updateContentCommand": "direnv allow"
+  "onCreateCommand": "direnv allow",
+  "updateContentCommand": "direnv reload",
+  "postCreateCommand": "direnv exec . poetry install"
 }
